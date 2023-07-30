@@ -1,3 +1,4 @@
+require('dotenv').config()
 const inquirer = require("inquirer");
 const db = require("./db/connection.js");
 
@@ -11,7 +12,7 @@ const init = () => {
             type: "list",
             name: "action",
             message: "What would you like to do",
-            choices: ["View All Departments", "View All Roles", "View All Employees", "Add a Department", "Add New Role", "Add New Employee", "Update Employee Role", "End Program"]
+            choices: ["View All Departments", "View All Roles", "View All Employees", "Add a Department", "Add New Role", "Add an Employee", "Update Employee Role", "End Program"]
         }
 
     ]).then(res => {
@@ -31,9 +32,9 @@ const init = () => {
             case "Add New Role":
                 addNewRole();
                 break;
-            case "Add New Employee":
-                addEmployee();
-                break;
+            // case "Add an Employee":
+            //     addEmployee();
+            //     break;
             // case "Update Employee":
             //     updateEmployee();
             //     break;
@@ -55,7 +56,22 @@ const viewAllDepartments = () => {
 
 //View All Roles
 const viewAllRoles = () => {
-    db.query("SELECT * FROM role", (err, res) => {
+    const query = `
+        SELECT
+            employee.id AS "Unique ID",
+            employee.first_name,
+            employee.last_name,
+            role.title AS job_title,
+            department.name AS department,
+            role.salary,
+            CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+        FROM
+            employee
+            LEFT JOIN role ON employee.role_id = role.id
+            LEFT JOIN department ON role.department_id = department.id
+            LEFT JOIN employee manager ON employee.manager_id = manager.id;
+    `;
+    db.query(query, (err, res) =>{
         if (err) throw err;
         console.table(res);
         init();
@@ -64,7 +80,23 @@ const viewAllRoles = () => {
 
 //View All Employees
 const viewAllEmployees = () => {
-    db.query("SELECT * FROM employee", (err, res) => {
+    const query = `
+        SELECT
+            employee.id AS "Unique ID",
+            employee.first_name,
+            employee.last_name,
+            role.title AS job_title,
+            department.name AS department,
+            role.salary,
+            CONCAT(manager.first_name, ' ', manager.last_name) AS manager
+        FROM
+            employee
+            LEFT JOIN role ON employee.role_id = role.id
+            LEFT JOIN department ON role.department_id = department.id
+            LEFT JOIN employee manager ON employee.manager_id = manager.id;
+    `;
+
+    db.query(query, (err, res) =>{
         if (err) throw err;
         console.table(res);
         init();
@@ -122,7 +154,7 @@ const addNewRole = () => {
     })
 }
 
-// Add New Employee
+// Add an Employee
 
 
 

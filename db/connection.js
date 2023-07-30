@@ -2,8 +2,8 @@ const sql = require("mysql2");
 
 const db = sql.createConnection({
     host: "localhost",
-    user: "root",
-    password: "root",
+    user: process.env.db_user,
+    password: process.env.db_password,
     database: "employee_tracker"
 });
 
