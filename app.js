@@ -229,7 +229,7 @@ const updateEmployee = () => {
 
         db.query(`UPDATE employee SET role_id = ? WHERE id = ?;`, [updateRole, updateEmployee], (err) => {
             if (err) throw err;
-            console.log("------(Employee role has been updated)-----");
+            console.log("------(EMPLOYEE ROLE HAS BEEN UPDATED)-----");
             init();
         });
         });
