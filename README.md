@@ -26,11 +26,11 @@ SO THAT I can organize and plan my business
 Employee Tracker `npm install`
 
 ## Features
-Just By using content management systems (CMS). Client can Read and update their Individual departmernt and add employees,update employees, update their Roles and view and update their managers.
+By using content management systems (CMS), clients can read and update their departments by adding and updating employees roles. They can also view and update managers.
 
 
 ##  Dependencies
-Inquirer,MySql 2, dotenv,Console Table.
+Inquirer, MySql 2, dotenv, Console Table
 
 ## Language and Technology Used
 Javascript
